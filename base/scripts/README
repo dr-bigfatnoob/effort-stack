@@ -1,0 +1,147 @@
+Set of scripts for the Replication Package
+for the paper "Estimating Development Effort in Free/Open Source Software Projects by Mining Software Repositories"
+submitted to the MSR 2014
+
+Index:
+  * General Information
+  * Particular Scripts
+  * Copyright, License and Authorship
+
+========================================================================
+
+GENERAL INFORMATION
+
+These are the most important scripts to be used 
+(the others just provide some functions that these scripts use). The scripts
+require as input private data gathered with the survey, so they cannot be run 
+with the anonymized set of data that is released with the replication package.
+However, the output of running the scripts is provided, as the output contains
+aggregated information.
+
+
+A) Calculation of the quality parameters
+
+precision_recall_semester.py 
+
+(Requires private data, not included in the replication package to preserve
+the privacy of survey respondants).
+
+The output of running it with private data is given in file
+precision_recall_semester.output.txt in the replication package as it is
+an aggregated result which preserves privacy of survey participants.
+
+B) Comparison of project and survey populations
+
+compare_distributions.py
+
+(Requires private data, not included in the replication package to preserve
+the privacy of survey respondants).
+
+The output of running it with private data is given in file
+compare_distributions.R in the replication package as it is
+an aggregated result which preserves privacy of survey participants.
+
+
+C) Calculation of effort.
+
+calculate_effort.py
+
+(Requires private data, not included in the replication package to preserve
+the privacy of survey respondants).
+
+The output of running it with private data is given in file
+calculate_effort.output.txt in the replication package as it is
+an aggregated result which preserves privacy of survey participants.
+
+
+
+========================================================================
+
+PARTICULAR SCRIPTS
+
+===
+1. answers_openstack.py
+
+Given a filename with survey data in CSV, returns a 
+dictionary with the developer_id as the key and
+the answers to the survey as following list:
+[commitment, hours, percentage, int(days), int(commits)]
+
+In the context of the MSR 2014, the usual filename used
+as input should be "answers_openstack.csv"
+
+===
+2. calculate_effort.py
+
+Returns (prints to STDOUT) the estimated effort for a project
+
+Effort is given for the whole lifespan of the project as well as for semesters
+The effort estimatinos is given for several threshold values t
+
+In the context of the MSR 2014, this script should be launched as follows:
+$ python calculate_effort.py output_authors_ids.csv answers_openstack.csv output_commits.csv
+
+===
+3. compare_distributions.py
+
+Returns (prints to STDOUT) R instructions that allow the comparison of the
+population of the project and of the survey population
+
+In the context of the MSR 2014, this script should be launched as follows:
+$ python compare_distributions.py output_authors_ids.csv answers_openstack.csv
+
+===
+4. precision_recall_semester.py
+
+Returns (prints to STDOUT) following values for several threshold t:
+  * [tp, fm, tn, fp]
+  * precision 
+  * recall
+  * fmeasure
+  * accuracy,
+  * goodness
+
+In the context of the MSR 2014, this script should be launched as follows:
+$ python precision_recall_semester.py output_authors_ids.csv answers_openstack.public.csv output_commits.csv
+
+===
+5. recreate_authors.py
+
+
+Given a CSV filename with author merging information
+(for every developer_id, other developer_ids for the same author is given)
+Returns (prints to STDOUT)
+
+In the context of the MSR 2014, this script should be launched as follows:
+$ python recreate_authors.py output_authors_ids.csv
+
+===
+5. anonimify.py
+
+Given a CSV with the survey data
+Returns (prints to STDOUT) an anonified CSV of the survey data
+
+
+========================================================================
+
+COPYRIGHT, LICENSE AND AUTHORSHIP
+
+Copyright (C) 2014 GSyC/LibreSoft - Universidad Rey Juan Carlos
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+Authors :
+      Gregorio Robles <grex@gsyc.urjc.es>
+
